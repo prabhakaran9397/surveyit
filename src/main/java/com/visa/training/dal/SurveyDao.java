@@ -1,10 +1,14 @@
 package com.visa.training.dal;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-@Repository
-@Transactional
+import com.visa.training.domain.Survey;
+
 public interface SurveyDao {
-
+	
+	Survey create(Survey s);
+	
+	Survey findById(int id);
+	
+	void delete(int id);
+	
 }
