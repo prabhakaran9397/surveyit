@@ -24,5 +24,8 @@ public class MysqlSurveyDistributionDao implements SurveyDistributionDao {
 		return sd;
 	}
 
-
+	@Override
+	public void delete(int id) {
+		em.remove(findById(id));
+	}
 }
