@@ -16,15 +16,15 @@ public class MysqlUserDao implements UserDao {
 	EntityManager em;
 	
 	@Override
-	public void delete(int id) {
-		User u = em.find(User.class, id);
-		em.remove(u);
-	}
-
-	@Override
 	public User create(User u) {
 		em.persist(u);
 		return u;
+	}
+	
+	@Override
+	public void delete(int id) {
+		User u = em.find(User.class, id);
+		em.remove(u);
 	}
 
 	@Override
