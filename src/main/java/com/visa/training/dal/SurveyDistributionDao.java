@@ -1,10 +1,14 @@
 package com.visa.training.dal;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-@Repository
-@Transactional
+import com.visa.training.domain.SurveyDistribution;
+
+
 public interface SurveyDistributionDao {
+	
+	SurveyDistribution create(SurveyDistribution sd);
+	
+	SurveyDistribution findById(int id);
 
+	void delete(int id);
 }

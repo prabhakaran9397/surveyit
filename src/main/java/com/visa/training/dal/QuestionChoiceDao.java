@@ -1,10 +1,13 @@
 package com.visa.training.dal;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import com.visa.training.domain.QuestionChoice;
 
-@Repository
-@Transactional
+
 public interface QuestionChoiceDao {
+	QuestionChoice create(QuestionChoice questionChoice);
+
+	void delete(int id);
+
+	QuestionChoice findById(int id);
 
 }
