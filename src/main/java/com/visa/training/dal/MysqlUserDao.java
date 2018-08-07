@@ -31,6 +31,11 @@ public class MysqlUserDao implements UserDao {
 	public User findById(int id) {
 		return em.find(User.class, id);
 	}
+
+	@Override
+	public User findByUsername(int id) {
+		return em.find(User.class, id);
+	}
 	
 	
 }
