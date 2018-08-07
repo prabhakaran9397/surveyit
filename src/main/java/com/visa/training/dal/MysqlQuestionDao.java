@@ -3,12 +3,12 @@ package com.visa.training.dal;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.visa.training.domain.Question;
 
-@Component
+@Repository
 @Transactional
 public class MysqlQuestionDao implements QuestionDao {
 	
