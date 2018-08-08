@@ -20,12 +20,10 @@ public class Answer {
     
     @ManyToOne(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
     @JoinColumn(name="question_id")
-    @Column(nullable=false)
     Question question;
     
     @ManyToOne(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
-    @Column(nullable=false)
     User user;
     
     @Column(nullable=false)
