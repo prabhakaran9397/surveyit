@@ -53,6 +53,10 @@ public class User {
 		this.usertype = usertype;
 	}
 	
+	public User() {
+		super();
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -3,10 +3,13 @@ package com.visa.training.dal;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.visa.training.domain.Survey;
 
-
+@Repository
+@Transactional
 public class MysqlSurveyDao implements SurveyDao {
 
 	@Autowired

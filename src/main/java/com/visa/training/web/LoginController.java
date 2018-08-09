@@ -23,13 +23,13 @@ public class LoginController {
 	private HttpSession session;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String displayForm() {
+	public String decideLoginView() {
 		User user = getLoggedInUser();
 		return user == null ? "loginView" : "homeView";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String processForm(@ModelAttribute("user") User u, Map<String, Object> data) {
+	public String processLogin(@ModelAttribute("user") User u, Map<String, Object> data) {
 		User userInDb = service.findByUsername(u.getUsername());
 		if(userInDb == null || !userInDb.getPassword().equals(u.getPassword())) {
 			data.put("error", "Username or Password is wrong");

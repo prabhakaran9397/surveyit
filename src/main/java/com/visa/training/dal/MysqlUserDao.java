@@ -34,7 +34,7 @@ public class MysqlUserDao implements UserDao {
 
 	@Override
 	public User findByUsername(String username) {
-		return (User) em.createQuery("SELECT u FROM User u WHERE u.user_name = " + username).getSingleResult();
+		return (User) em.createQuery("SELECT u FROM User u WHERE u.username = '" + username + "'").getSingleResult();
 	}
 	
 	
