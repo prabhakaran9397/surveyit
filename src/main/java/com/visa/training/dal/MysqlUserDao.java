@@ -1,5 +1,7 @@
 package com.visa.training.dal;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,12 @@ public class MysqlUserDao implements UserDao {
 	@Override
 	public User findByUsername(String username) {
 		return (User) em.createQuery("SELECT u FROM User u WHERE u.username = '" + username + "'").getSingleResult();
+	}
+
+	@Override
+	public List<User> findAll() {
+		List<User> users = em.createQuery("SELECT u FROM User u").getResultList();
+		return users;
 	}
 	
 	

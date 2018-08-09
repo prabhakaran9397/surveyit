@@ -38,7 +38,11 @@ public class UserSurvey {
         this.isFinished = isFinished;
     }
     
-    public int getId() {
+    public UserSurvey() {
+		
+	}
+
+	public int getId() {
         return id;
     }
 

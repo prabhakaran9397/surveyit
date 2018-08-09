@@ -1,6 +1,7 @@
 package com.visa.training.dal;
 
 
+import com.visa.training.domain.Survey;
 import com.visa.training.domain.SurveyDistribution;
 
 
@@ -11,4 +12,5 @@ public interface SurveyDistributionDao {
 	SurveyDistribution findById(int id);
 
 	void delete(int id);
+	
 }

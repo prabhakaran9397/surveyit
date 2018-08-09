@@ -36,6 +36,10 @@ public class SurveyDistribution {
     
     @OneToMany(mappedBy = "surveyDistribution")
 	List<UserSurvey> userSurveys = new ArrayList<>();
+    
+    public SurveyDistribution() {
+    	
+    }
 
     public SurveyDistribution(int id, Survey survey, Date distributedTime) {
         super();
