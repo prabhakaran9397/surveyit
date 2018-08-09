@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.visa.training.dal.SurveyDistributionDao;
 import com.visa.training.dal.UserSurveyDao;
 import com.visa.training.domain.SurveyDistribution;
 import com.visa.training.domain.User;
@@ -35,7 +34,7 @@ public class UserSurveyService {
 		dao.delete(id);
 	}
 
-	public UserSurvey create(User u, SurveyDistribution sd, UserSurvey userSurvey) {
+	public UserSurvey create(UserSurvey userSurvey, User u, SurveyDistribution sd) {
 		u = userService.findById(u.getId());
 		sd = surveyDistributionService.findById(sd.getId());
 		userSurvey.setSurveyDistribution(sd);
