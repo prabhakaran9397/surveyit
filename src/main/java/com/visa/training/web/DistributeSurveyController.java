@@ -52,17 +52,14 @@ public class DistributeSurveyController {
 		List<User> users = userService.findAll();
 		data.put("userslist", users);
 		
-		return "distributeView";
+		return "distributeSurveyView";
 
 	}
 
 	@RequestMapping(value = "/distribute", method = RequestMethod.POST)
 	public String processDistributeSurvey(@RequestParam("survey") int sid, @RequestParam("user") List<Integer> uids) {
-
 		User user = login.getLoggedInUser();
-		if (user == null) {
-			return "loginView";
-		}
+		if (user == null) return "loginView";
 
 		Survey s = surveyService.findById(sid);
 		if(s == null){
@@ -84,7 +81,7 @@ public class DistributeSurveyController {
 
 		sd.setUserSurveys(usersurveyList);
 
-		return null;
+		return "homeView";
 
 	}
 
