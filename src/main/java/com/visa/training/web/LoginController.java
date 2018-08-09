@@ -37,7 +37,7 @@ public class LoginController {
 				data.put("error", "Username or Password is wrong");
 				return "loginView";
 			} else {
-				session.setAttribute("user", u);
+				session.setAttribute("user", userInDb);
 				return "homeView";
 			}
 		} catch (NoResultException e) {
