@@ -26,7 +26,8 @@ public class LoginController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String decideLoginView() {
 		User user = getLoggedInUser();
-		return user == null ? "loginView" : "homeView";
+		if (user == null) return "loginView";
+		return "redirect:/home";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -38,7 +39,7 @@ public class LoginController {
 				return "loginView";
 			} else {
 				session.setAttribute("user", userInDb);
-				return "homeView";
+				return "redirect:/home";
 			}
 		} catch (NoResultException e) {
 			data.put("error", "Username or Password is wrong");

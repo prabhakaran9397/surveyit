@@ -1,5 +1,7 @@
 package com.visa.training.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,10 @@ public class SurveyDistributionService {
 
 	public void delete(int id) {
 		dao.delete(id);
+	}
+
+	public List<SurveyDistribution> findAllById(Survey s) {
+		return dao.findAllByUser(s);		
 	}
 
 }

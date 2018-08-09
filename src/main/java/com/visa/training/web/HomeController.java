@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.visa.training.domain.Survey;
 import com.visa.training.domain.User;
 import com.visa.training.domain.UserSurvey;
+import com.visa.training.service.SurveyDistributionService;
+import com.visa.training.service.SurveyService;
+import com.visa.training.service.UserSurveyService;
 
 @Controller
 public class HomeController {
@@ -20,13 +23,22 @@ public class HomeController {
 	@Autowired
 	LoginController login;
 	
+	@Autowired
+	SurveyService surveyService;
+	
+	@Autowired
+	UserSurveyService userSurveyService;
+	
+	@Autowired
+	SurveyDistributionService surveyDistService;
+	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String decideView(Map<String, Object> data) {
 		User user = login.getLoggedInUser();
-		if (user == null) return "loginView";
+		if (user == null) return "redirect:/login";
 		
 		if(user.getUsertype() == 0 || user.getUsertype() == 2) {
-			List<UserSurvey> userSurveys = user.getUserSurveys();
+			List<UserSurvey> userSurveys = userSurveyService.findAllByUser(user);
 			
 			data.put("table1", userSurveys.stream()
 				.filter(s -> !s.isFinished())
@@ -52,7 +64,7 @@ public class HomeController {
 		}
 		
 		if(user.getUsertype() == 1 || user.getUsertype() == 2) {
-			List<Survey> surveys = user.getSurveys();
+			List<Survey> surveys = surveyService.findAllByUser(user);
 			
 			data.put("table3", surveys.stream()
 				.map(s -> {
@@ -65,7 +77,7 @@ public class HomeController {
 			
 			List<List<String>> out = new ArrayList<List<String>>();
 			for(Survey s: surveys) {
-				s.getDistributions().stream()
+				surveyDistService.findAllById(s).stream()
 					.map(d -> {
 						List<String> sd = new ArrayList<>();
 						sd.add(String.valueOf(d.getId()));

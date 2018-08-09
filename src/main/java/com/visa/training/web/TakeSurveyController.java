@@ -33,6 +33,8 @@ public class TakeSurveyController {
 			return "homeView";
 		}
 		
+		data.put("title", surveyDist.getSurvey().getTitle());
+		data.put("description", surveyDist.getSurvey().getDescription());
 		
 		return null;
 	}
