@@ -38,10 +38,13 @@ public class Survey {
     
     @OneToMany(mappedBy="survey")
     List<Question> question = new ArrayList<>();
+    
+    public Survey(){
+    	super();
+    }
 
-    public Survey(int id, User user, String title, String description) {
+    public Survey(User user, String title, String description) {
         super();
-        this.id = id;
         this.user = user;
         this.title = title;
         this.description = description;
@@ -83,7 +86,7 @@ public class Survey {
 		this.distributions = distributions;
 	}
 
-	public List<Question> getQuestion() {
+	public List<Question> getQuestions() {
 		return question;
 	}
 

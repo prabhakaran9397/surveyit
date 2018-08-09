@@ -21,6 +21,14 @@ public class SurveyDistributionService {
 	public SurveyDistribution create(SurveyDistribution sd) {
 		return dao.create(sd);
 	}
+	
+	public SurveyDistribution create(SurveyDistribution sd, Survey s) {
+		s = surveyService.findById(s.getId());
+		sd.setSurvey(s);
+		dao.create(sd);
+		s.getDistributions().add(sd);
+		return sd;
+	}
 
 	public SurveyDistribution findById(int id) {
 		return dao.findById(id);
