@@ -24,8 +24,8 @@ public class SurveyService {
 	
 	public Survey create(Survey s, User u) {
 		u = userService.findById(u.getId());
-		dao.create(s);
 		s.setUser(u);
+		dao.create(s);
 		return s;
 	}
 

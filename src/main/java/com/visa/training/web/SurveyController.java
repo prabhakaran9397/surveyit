@@ -33,8 +33,7 @@ public class SurveyController {
 		if(user==null){
 			return "loginView";
 		}
-		service.create(s);
-		s.setUser(user);
+		service.create(s, user);
 		return "homeView";
 	}
 }
