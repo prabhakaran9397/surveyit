@@ -1,7 +1,6 @@
 package com.visa.training.dal;
 
 
-import com.visa.training.domain.Survey;
 import com.visa.training.domain.SurveyDistribution;
 
 

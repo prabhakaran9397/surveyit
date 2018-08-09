@@ -18,7 +18,7 @@ public class QuestionChoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     
-    @Column(nullable = false)
+    @Column(name="question_choice", nullable = false)
     String questionChoice;
     
     @ManyToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
