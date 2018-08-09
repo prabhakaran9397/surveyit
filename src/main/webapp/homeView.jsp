@@ -9,6 +9,9 @@
 		<title>Home</title>
 	</head>
 	<body>
+		<c:if test="${not empty error}">
+			<p class="err"> ${error} </p>
+		</c:if>
 		<c:if test="${not empty table1}">
 		<div>
 			<h3>Pending Surveys</h3>

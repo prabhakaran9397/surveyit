@@ -18,11 +18,11 @@ public class Answer {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     int id;
     
-    @ManyToOne(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
     @JoinColumn(name="question_id")
     Question question;
     
-    @ManyToOne(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
     @JoinColumn(name="user_id")
     User user;
     
