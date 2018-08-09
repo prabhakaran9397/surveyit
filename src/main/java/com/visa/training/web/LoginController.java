@@ -2,6 +2,7 @@ package com.visa.training.web;
 
 import java.util.Map;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,18 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String processLogin(@ModelAttribute("user") User u, Map<String, Object> data) {
-		User userInDb = service.findByUsername(u.getUsername());
-		if(userInDb == null || !userInDb.getPassword().equals(u.getPassword())) {
+		try {
+			User userInDb = service.findByUsername(u.getUsername());
+			if(userInDb == null || !userInDb.getPassword().equals(u.getPassword())) {
+				data.put("error", "Username or Password is wrong");
+				return "loginView";
+			} else {
+				session.setAttribute("user", u);
+				return "homeView";
+			}
+		} catch (NoResultException e) {
 			data.put("error", "Username or Password is wrong");
 			return "loginView";
-		} else {
-			session.setAttribute("user", u);
-			return "homeView";
 		}
 	}
 	
