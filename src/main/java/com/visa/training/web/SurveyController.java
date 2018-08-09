@@ -5,9 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.visa.training.dal.SurveyDao;
 import com.visa.training.domain.Survey;
 import com.visa.training.domain.User;
 import com.visa.training.service.SurveyService;
