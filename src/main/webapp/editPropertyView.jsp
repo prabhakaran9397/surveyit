@@ -22,7 +22,8 @@
 			<option value="3">3</option>
 			<option value="4">4</option>
 		</select>
-		<input type="question
+		<input type="hidden" name="surveyId" value="${survey.id}">
+		<input type="submit" value="Add question">
 	</form>
 </body>
 </html>
