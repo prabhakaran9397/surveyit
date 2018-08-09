@@ -26,6 +26,7 @@ public class SurveyService {
 		u = userService.findById(u.getId());
 		s.setUser(u);
 		dao.create(s);
+		u.getSurveys().add(s);
 		return s;
 	}
 

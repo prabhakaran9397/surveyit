@@ -86,7 +86,7 @@ public class Survey {
 		this.distributions = distributions;
 	}
 
-	public List<Question> getQuestion() {
+	public List<Question> getQuestions() {
 		return question;
 	}
 

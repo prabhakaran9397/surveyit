@@ -35,7 +35,7 @@
 					<th>Survey Title</th>
 					<th>Distributed Time</th>
 				</tr>
-				<c:forEach var="row" items="${table2}">
+				<c:forEach var="row" items="${table2}">	
 				<tr>
 					<c:forEach var="element" items="${row}">
 						<td> ${element} </td>
