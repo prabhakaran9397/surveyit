@@ -51,7 +51,6 @@ public class TakeSurveyController {
 		if (user == null) return "redirect:/login";
 		
 		SurveyDistribution surveyDist = surveyDistService.findById(surveyDistId);
-		
 		if(surveyDist == null) return "redirect:/home";
 		
 		boolean found = false;

@@ -10,18 +10,16 @@
 		<title>Response View Page</title>
 	</head>
 	<body>
-		<table>
-		<tr><th>Survey Title</th><td>${title }</td></tr>
-		<tr><th>Survey Description</th><td>${description }</td></tr>
-		<tr><th>Time Stamp</th><td>${timestamp }</td></tr>
-		<tr><th>Questions</th><th>Answers</th></tr>
-		<c:forEach begin="1" step="1" end="${fn:length(questions)}" varStatus="i">
-		<tr><td>${questions[i.count-1].question }</td><td> </td></tr>
-		<c:forEach begin="1" step="1" end="${fn:length(answers[i.count-1]) }" varStatus="j">
-		<tr><td> </td><td>${answers[i.count-1][j.count-1].answer}</td></tr>
+		<p>${title}</p>
+		<p>${description}</p>
+		<p>${timestamp}</p>
+		<c:forEach items="${qas}" var="qa" >
+			<p>${qa.key.question}</p>
+			<c:if test=${qa.key.questionType eq 1}>
+				<c:forEach items="${qa.value}" var="a">
+					<p>${a}</p>
+				</c:forEach>
+			</c:if>
 		</c:forEach>
-		</c:forEach>
-		
-		</table>
 	</body>
 </html>
