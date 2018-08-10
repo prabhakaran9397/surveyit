@@ -41,4 +41,10 @@ public class MysqlAnswerDao implements AnswerDao {
 		return (List<Answer>) em.createQuery("SELECT a FROM Answer a WHERE a.user.id = " +user.getId()+" AND a.question.id = "+ q.getId()).getResultList();
 	}
 
+	@Override
+	public List<Answer> findAllByQuestion(Question q) {
+		return (List<Answer>) em.createQuery("SELECT a FROM Answer a WHERE  a.question.id = "+ q.getId()).getResultList();
+		
+	}
+
 }

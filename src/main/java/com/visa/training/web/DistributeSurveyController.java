@@ -51,7 +51,8 @@ public class DistributeSurveyController {
 
 		data.put("survey", survey);
 		List<User> users = userService.findAll();
-		data.put("userslist", users);
+		
+		data.put("userslist", users.stream().filter(u -> u.getUsertype()%2 == 0).collect(Collectors.toList()));
 		
 		return "distributeSurveyView";
 
