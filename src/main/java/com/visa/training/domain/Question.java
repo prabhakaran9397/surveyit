@@ -97,12 +97,7 @@ public class Question {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((question == null) ? 0 : question.hashCode());
-		result = prime * result + ((questionChoices == null) ? 0 : questionChoices.hashCode());
-		result = prime * result + questionType;
-		result = prime * result + ((survey == null) ? 0 : survey.hashCode());
 		return result;
 	}
 
@@ -115,29 +110,7 @@ public class Question {
 		if (getClass() != obj.getClass())
 			return false;
 		Question other = (Question) obj;
-		if (answers == null) {
-			if (other.answers != null)
-				return false;
-		} else if (!answers.equals(other.answers))
-			return false;
 		if (id != other.id)
-			return false;
-		if (question == null) {
-			if (other.question != null)
-				return false;
-		} else if (!question.equals(other.question))
-			return false;
-		if (questionChoices == null) {
-			if (other.questionChoices != null)
-				return false;
-		} else if (!questionChoices.equals(other.questionChoices))
-			return false;
-		if (questionType != other.questionType)
-			return false;
-		if (survey == null) {
-			if (other.survey != null)
-				return false;
-		} else if (!survey.equals(other.survey))
 			return false;
 		return true;
 	}

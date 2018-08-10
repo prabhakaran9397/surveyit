@@ -3,6 +3,7 @@ package com.visa.training.dal;
 import java.util.List;
 
 import com.visa.training.domain.Answer;
+import com.visa.training.domain.Question;
 import com.visa.training.domain.User;
 
 public interface AnswerDao {
@@ -12,5 +13,5 @@ public interface AnswerDao {
 	
 	Answer findById(int id);
 
-	List<Answer> findAllByUser(User user);
+	List<Answer> findAllByQuestionAndUser(Question q, User user);
 }

@@ -20,7 +20,7 @@ public class MysqlAnswerDao implements AnswerDao {
 	
 	@Override
 	public Answer create(Answer answer) {
-		System.out.println(answer);
+		System.out.println(answer.getId() + " " + answer.getQuestion().getQuestion() + " " + answer.getUser().getId());
 		em.persist(answer);
 		return answer;
 	}
@@ -35,11 +35,10 @@ public class MysqlAnswerDao implements AnswerDao {
 	public Answer findById(int id) {
 		return em.find(Answer.class, id);
 	}
-
+	
 	@Override
-	public List<Answer> findAllByUser(User u) {
-		return (List<Answer>) em.createQuery("SELECT a FROM Answer a WHERE a.user.id = " + u.getId()).getResultList();
-
+	public List<Answer> findAllByQuestionAndUser(Question q, User user) {
+		return (List<Answer>) em.createQuery("SELECT a FROM Answer a WHERE a.user.id = " +user.getId()+" AND a.question.id = "+ q.getId()).getResultList();
 	}
 
 }

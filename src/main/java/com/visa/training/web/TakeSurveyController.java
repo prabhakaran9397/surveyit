@@ -51,13 +51,12 @@ public class TakeSurveyController {
 		if (user == null) return "redirect:/login";
 		
 		SurveyDistribution surveyDist = surveyDistService.findById(surveyDistId);
-		
 		if(surveyDist == null) return "redirect:/home";
 		
 		boolean found = false;
 		List<UserSurvey> userSurveys = userSurveyService.findAllByUser(user);
 		for(UserSurvey us : userSurveys) {
-			found = us.getSurveyDistribution().getId() == surveyDist.getId();
+			found = !us.isFinished() && us.getSurveyDistribution().getId() == surveyDist.getId();
 		}
 		if(!found) return "redirect:/home";
 		
@@ -87,8 +86,12 @@ public class TakeSurveyController {
 		
 		boolean found = false;
 		List<UserSurvey> userSurveys = userSurveyService.findAllByUser(user);
+		UserSurvey userSurvey = null;
 		for(UserSurvey us : userSurveys) {
-			found = us.getSurveyDistribution().getId() == surveyDist.getId();
+			if(!us.isFinished() && us.getSurveyDistribution().getId() == surveyDist.getId()) {
+				found = true;
+				userSurvey = us;
+			}
 		}
 		if(!found) return "redirect:/home";
 		
@@ -110,6 +113,10 @@ public class TakeSurveyController {
 			}
 			req.getParameter(String.valueOf(q.getId()));
 		});
+		
+		if(req.getParameter("submit").equals("Respond")) {
+			userSurveyService.setFinished(userSurvey, true);
+		}
 		
 		return "redirect:/home";
 	}
