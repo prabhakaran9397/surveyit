@@ -17,12 +17,12 @@
 				<p> ${questions[i.count-1].question} </p>
 				<c:if test="${questions[i.count-1].questionType eq 1}">
 					<c:forEach begin="1" step="1" end="${fn:length(questionChoices[i.count-1])}" varStatus="j">
-						<input type="checkbox" name="${questions[i.count-1].id}" value="${questionChoices[i.count-1][j.count-1].id}"/>${questionChoices[i.count-1][j.count-1].questionChoice}<br/>
+						<input type="checkbox" name="${questions[i.count-1].id}" value="${questionChoices[i.count-1][j.count-1].questionChoice}"/>${questionChoices[i.count-1][j.count-1].questionChoice}<br/>
 					</c:forEach>
 				</c:if>
 				<c:if test="${questions[i.count-1].questionType eq 2}">
 					<c:forEach begin="1" step="1" end="${fn:length(questionChoices[i.count-1])}" varStatus="j">
-						<input type="radio" name="${questions[i.count-1].id}" value="${questionChoices[i.count-1][j.count-1].id}"/>${questionChoices[i.count-1][j.count-1].questionChoice}<br/>
+						<input type="radio" name="${questions[i.count-1].id}" value="${questionChoices[i.count-1][j.count-1].questionChoice}"/>${questionChoices[i.count-1][j.count-1].questionChoice}<br/>
 					</c:forEach>
 				</c:if>
 				<c:if test="${questions[i.count-1].questionType eq 3}">
