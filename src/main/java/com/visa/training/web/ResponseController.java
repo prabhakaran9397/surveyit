@@ -51,6 +51,7 @@ public class ResponseController {
 		List<UserSurvey> userSurveys = userSurveyService.findAllByUser(user);
 		for(UserSurvey us : userSurveys) {
 			found = us.isFinished() && us.getSurveyDistribution().getId() == surveyDist.getId();
+			if(found) break;
 		}
 		if(!found) return "redirect:/home";
 		
