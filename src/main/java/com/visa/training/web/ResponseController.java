@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.visa.training.dal.SurveyDistributionDao;
 import com.visa.training.domain.Answer;
 import com.visa.training.domain.Question;
+import com.visa.training.domain.QuestionChoice;
 import com.visa.training.domain.SurveyDistribution;
 import com.visa.training.domain.User;
 import com.visa.training.service.AnswerService;
@@ -39,7 +40,12 @@ public class ResponseController {
 		data.put("timestamp", sd.getDistributedTime());
 		List<Question> questions = questionService.findAllBySurvey(sd.getSurvey());
 		data.put("questions", questions);
-		List<Answer> answers= answerService.findAllByUser(sd.getSurvey().getUser());
+		List<List<Answer>> answers=null;
+		int i=0;
+		for(Question q: questions) {
+			List<Answer> ans = answerService.findAllByQuestionAndUser(sd.getSurvey().getUser(),q);
+			answers.add(ans);
+		}
 		data.put("answers", answers);
 		
 			
