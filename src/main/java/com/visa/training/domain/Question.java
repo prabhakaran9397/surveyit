@@ -38,6 +38,10 @@ public class Question {
 	@OneToMany(mappedBy = "question")
 	List<Answer> answers = new ArrayList<>();
 
+	public Question(){
+		super();
+	}
+	
 	public Question(int questionType, String question, Survey survey) {
 		super();
 		this.questionType = questionType;
