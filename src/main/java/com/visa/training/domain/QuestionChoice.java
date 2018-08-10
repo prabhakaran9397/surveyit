@@ -31,10 +31,7 @@ public class QuestionChoice {
         this.question = question;
     }
     
-    public QuestionChoice() {
-        super();
-    }
-
+ 
     @Override
     public String toString() {
         return "QuestionChoice [id=" + id + ", questionChoice=" + questionChoice + ", question=" + question + "]";
