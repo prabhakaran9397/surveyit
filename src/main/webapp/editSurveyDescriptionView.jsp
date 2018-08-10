@@ -6,9 +6,9 @@
 <title>Edit survey title - ${survey.title}</title>
 </head>
 <body>
-	<form action="survey/${survey.id}/description" method="PUT">
+	<form action="" method="POST">
 		Enter the description:<br/>
-		<textarea rows="5" cols="10">${survey.description}</textarea>
+		<textarea rows="5" cols="10" name="description">${survey.description}</textarea>
 		<input type="submit" value="Change Description">
 	</form>
 </body>

@@ -8,7 +8,7 @@
 <body>
 	Title |
 	<span>${question.title}</span> |
-	<a href="question/${id}/title">Edit</a>
+	<a href="/surveyit/question/${id}/title">Edit</a>
 	<br/>
 	Type | ${question.questionType}
 	<br/>

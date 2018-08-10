@@ -6,7 +6,7 @@
 <title>Edit survey title - ${survey.title}</title>
 </head>
 <body>
-	<form action="survey/${survey.id}/title" method="PUT">
+	<form action="" method="POST">
 		Enter the title:
 		<input type="text" name="title" value="${survey.title}"/>
 		<input type="submit" value="Change title">

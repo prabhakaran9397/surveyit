@@ -11,7 +11,6 @@
 		Description
 		<textarea rows="5" cols="10" name="description"></textarea>
 		<button type="submit" formaction="saveSurvey">Save</button>
-		<button type="submit" formaction="addQuestion">Add question</button>
 	</form>
 </body>
 </html>

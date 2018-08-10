@@ -45,13 +45,13 @@ public class QuestionController {
 		
 		Survey survey = surveyService.findById(surveyId);
 		
-		if(!survey.getUser().equals(user))
+		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
 		
-		if(survey.getDistributions()!=null){
+		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
@@ -73,9 +73,13 @@ public class QuestionController {
 			return "errorView";
 		}
 		Survey survey = q.getSurvey();
-		if(!survey.getUser().equals(user))
+		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 		data.put("question", q.getQuestion());
@@ -96,7 +100,7 @@ public class QuestionController {
 			return "errorView";
 		}
 		Survey survey = q.getSurvey();
-		if(!survey.getUser().equals(user))
+		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
 			return "errorView";
@@ -106,7 +110,7 @@ public class QuestionController {
 		return "editQuestionTitleView";
 	}
 	
-	@RequestMapping(value="/question/{id}/title",method=RequestMethod.PUT)
+	@RequestMapping(value="/question/{id}/title",method=RequestMethod.POST)
 	public String saveTitle(@PathVariable("id")int id, @RequestParam("question")String question,Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
@@ -119,7 +123,7 @@ public class QuestionController {
 			return "errorView";
 		}
 		Survey survey = q.getSurvey();
-		if(!survey.getUser().equals(user))
+		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
 			return "errorView";

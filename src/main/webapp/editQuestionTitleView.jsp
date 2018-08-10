@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="question/${id}/title" method="PUT">
+	<form action="/surveyit/question/${id}/title" method="POST">
 		<input type="text" name="question" value="${question}">
 		<input type="submit" value="Change title">
 	</form>

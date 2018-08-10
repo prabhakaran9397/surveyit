@@ -36,9 +36,13 @@ public class QuestionChoiceController {
 			return "errorView";
 		}
 		Survey survey = qc.getQuestion().getSurvey();
-		if(!survey.getUser().equals(user))
+		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 		data.put("choice", qc);
@@ -58,9 +62,13 @@ public class QuestionChoiceController {
 			return "errorView";
 		}
 		Survey survey = qc.getQuestion().getSurvey();
-		if(!survey.getUser().equals(user))
+		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 		qc.setQuestionChoice(questionChoice);

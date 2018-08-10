@@ -53,16 +53,29 @@ public class SurveyController {
 		User user = login.getLoggedInUser();
 
 		if (user == null) return "redirect:/login";
-		if(user.getUsertype()<1) return "redirect:/home";
 		
 
 		Survey s = service.findById(id);
+		if(s==null)
+		{
+			data.put("error", "No such survey found!");
+			return "errorView";
+		}
+		if(s.getUser().getId()!=user.getId())
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+			data.put("error", "Survey already distributed;size="+s.getDistributions().size());
+			return "errorView";
+		}
 		data.put("survey", s);
 		data.put("questions",questionService.findAllBySurvey(s));
 		return "editSurveyView";
 	}
 
-	@RequestMapping(value="/survey/{id}/title", method = RequestMethod.PUT)
+	@RequestMapping(value="/survey/{id}/title", method = RequestMethod.POST)
 	public String saveTitle(@PathVariable("id") int id,@RequestParam("title")String title, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
@@ -74,17 +87,22 @@ public class SurveyController {
 			data.put("error", "No such survey found!");
 			return "errorView";
 		}
-		if(!s.getUser().equals(user)){
-			data.put("error", "Not authorized");
+		if(s.getUser().getId()!=user.getId())
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 
-		s.setTitle(title);
+		service.changeTitle(s, title);
 
 		return "redirect:/survey/"+s.getId();
 	}
 	
-	@RequestMapping(value="/survey/{id}/description", method = RequestMethod.PUT)
+	@RequestMapping(value="/survey/{id}/description", method = RequestMethod.POST)
 	public String saveDescription(@PathVariable("id") int id,@RequestParam("description")String description, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
@@ -96,12 +114,17 @@ public class SurveyController {
 			data.put("error", "No such survey found!");
 			return "errorView";
 		}
-		if(!s.getUser().equals(user)){
-			data.put("error", "Not authorized");
+		if(s.getUser().getId()!=user.getId())
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 
-		s.setDescription(description);
+		service.changeDescription(s, description);
 
 		return "redirect:/survey/"+s.getId();
 	}
@@ -118,8 +141,13 @@ public class SurveyController {
 			data.put("error", "No such survey found!");
 			return "errorView";
 		}
-		if(!s.getUser().equals(user)){
-			data.put("error", "Not authorized");
+		if(s.getUser().getId()!=user.getId())
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 		data.put("survey", s);
@@ -138,8 +166,13 @@ public class SurveyController {
 			data.put("error", "No such survey found!");
 			return "errorView";
 		}
-		if(!s.getUser().equals(user)){
-			data.put("error", "Not authorized");
+		if(s.getUser().getId()!=user.getId())
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 		data.put("survey", s);

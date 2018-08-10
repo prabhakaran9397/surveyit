@@ -7,7 +7,7 @@
 </head>
 <body>
 	Enter the choice
-	<form action="questionChoice/${choice.id}" method="PUT">
+	<form action="/surveyit/questionChoice/${choice.id}" method="POST">
 		<input type="text" name="questionChoice" value="${choice.questionChoice}"/>
 		<input type="submit" value="Save choice">
 	</form>

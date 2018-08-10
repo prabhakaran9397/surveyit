@@ -8,11 +8,11 @@
 <body>
 	Title |
 	<span>${survey.title} |</span>
-	<a href="/survey/${id}/title">Edit</a>
+	<a href="${id}/title">Edit</a>
 	<br />
 	<br /> Description
 	<p>${survey.description}</p>
-	<a href="/survey/${id}/description">Edit</a>
+	<a href="${id}/description">Edit</a>
 	<br />
 	<br />
 
@@ -32,12 +32,12 @@
 					<br/>
 				</c:forEach>
 			</c:if>
-			<a href="/question/${question.id}">Edit</a>	
+			<a href="/surveyit/question/${question.id}">Edit</a>	
 		</div>
 		<hr size="7">
 	</c:forEach>
 	<h3>Add question</h3>
-	<form method="POST" action="question">
+	<form method="POST" action="/surveyit/question">
 		Question <input type="text" name="question">
 		Type 
 		<select name="questionType">
