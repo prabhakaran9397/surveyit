@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.visa.training.domain.Question;
 import com.visa.training.domain.Survey;
+import com.visa.training.domain.SurveyDistribution;
 import com.visa.training.domain.User;
 import com.visa.training.service.QuestionChoiceService;
 import com.visa.training.service.QuestionService;
@@ -32,6 +33,9 @@ public class QuestionController {
 	
 	@Autowired
 	QuestionChoiceService questionChoiceService;
+	
+	@Autowired
+	SurveyDistributionService surveyDistributionService;
 
 	@RequestMapping(value="/question",method=RequestMethod.POST)
 	public String createQuestion(@RequestParam("question")String question,@RequestParam("questionType")int questionType,@RequestParam("surveyId")int surveyId, Map<String, Object> data){
@@ -51,7 +55,8 @@ public class QuestionController {
 			return "errorView";
 		}
 		
-		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(survey);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
@@ -78,11 +83,12 @@ public class QuestionController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(survey);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
-		data.put("question", q.getQuestion());
+		data.put("question", q);
 		data.put("choices", questionChoiceService.findAllByQuestion(q));
 		return "editQuestionView";
 	}
@@ -103,6 +109,11 @@ public class QuestionController {
 		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(survey);
+		if(sd.size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 		data.put("id", id);
@@ -126,6 +137,11 @@ public class QuestionController {
 		if(survey.getUser().getId()!=user.getId())
 		{
 			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(survey);
+		if(sd.size()>0){
+			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
 		q.setQuestion(question);

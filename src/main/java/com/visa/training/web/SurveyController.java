@@ -1,5 +1,6 @@
 package com.visa.training.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.visa.training.domain.Question;
 import com.visa.training.domain.Survey;
+import com.visa.training.domain.SurveyDistribution;
 import com.visa.training.domain.User;
+import com.visa.training.service.QuestionChoiceService;
 import com.visa.training.service.QuestionService;
+import com.visa.training.service.SurveyDistributionService;
 import com.visa.training.service.SurveyService;
 
 @Controller
@@ -27,6 +31,12 @@ public class SurveyController {
 	
 	@Autowired
 	QuestionService questionService;
+	
+	@Autowired
+	SurveyDistributionService surveyDistributionService;
+	
+	@Autowired
+	QuestionChoiceService questionChoiceService;
 
 	@RequestMapping(value = "/createSurvey", method = RequestMethod.GET)
 	public String createSurvey() {
@@ -66,12 +76,17 @@ public class SurveyController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(s.getDistributions()!=null || s.getDistributions().size()>0){
-			data.put("error", "Survey already distributed;size="+s.getDistributions().size());
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(s);
+		if(sd.size()>0){
+			data.put("error", sd.toString());
 			return "errorView";
-		}
+ 		}
 		data.put("survey", s);
-		data.put("questions",questionService.findAllBySurvey(s));
+		List<Question> quests = questionService.findAllBySurvey(s);
+		for(Question q: quests){
+			q.setQuestionChoices(questionChoiceService.findAllByQuestion(q));
+		}
+		data.put("questions",quests);
 		return "editSurveyView";
 	}
 
@@ -92,7 +107,8 @@ public class SurveyController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(s);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
@@ -119,7 +135,8 @@ public class SurveyController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(s);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
@@ -146,7 +163,8 @@ public class SurveyController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(s);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
@@ -171,7 +189,8 @@ public class SurveyController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(s.getDistributions()!=null || s.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(s);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}

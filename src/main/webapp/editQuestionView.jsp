@@ -7,7 +7,7 @@
 </head>
 <body>
 	Title |
-	<span>${question.title}</span> |
+	<span>${question.question}</span> |
 	<a href="/surveyit/question/${id}/title">Edit</a>
 	<br/>
 	Type | ${question.questionType}
@@ -17,12 +17,14 @@
 		<c:if test="${question.questionType eq 1}">
 				<c:forEach var="choice" items="${question.questionChoices}">
 					<input type="checkbox" disabled /> ${choice.questionChoice}
+				| <a href="/surveyit/questionchoice/${choice.id}">Edit</a>
 					<br/>
 				</c:forEach>
 			</c:if>
 			<c:if test="${question.questionType eq 2}">
 				<c:forEach var="choice" items="${question.questionChoices}">
 					<input type="radio" disabled /> ${choice.questionChoice}
+					| <a href="/surveyit/questionchoice/${choice.id}">Edit</a>
 					<br/>
 				</c:forEach>
 			</c:if>

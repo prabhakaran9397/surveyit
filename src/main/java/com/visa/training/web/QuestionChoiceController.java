@@ -1,5 +1,6 @@
 package com.visa.training.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.visa.training.domain.QuestionChoice;
 import com.visa.training.domain.Survey;
+import com.visa.training.domain.SurveyDistribution;
 import com.visa.training.domain.User;
 import com.visa.training.service.QuestionChoiceService;
+import com.visa.training.service.SurveyDistributionService;
 
 @Controller
 public class QuestionChoiceController {
@@ -22,6 +25,9 @@ public class QuestionChoiceController {
 	
 	@Autowired
 	QuestionChoiceService questionChoiceService;
+	
+	@Autowired
+	SurveyDistributionService surveyDistributionService;
 	
 	@RequestMapping(value="/questionchoice/{id}", method=RequestMethod.GET)
 	public String editChoice(@PathVariable("id")int id, Map<String, Object> data){
@@ -41,7 +47,8 @@ public class QuestionChoiceController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(survey);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
@@ -67,7 +74,8 @@ public class QuestionChoiceController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		if(survey.getDistributions()!=null || survey.getDistributions().size()>0){
+		List<SurveyDistribution> sd = surveyDistributionService.findAllById(survey);
+		if(sd.size()>0){
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
