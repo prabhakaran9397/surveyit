@@ -20,7 +20,7 @@ public class MysqlAnswerDao implements AnswerDao {
 	
 	@Override
 	public Answer create(Answer answer) {
-		System.out.println(answer);
+		System.out.println(answer.getId() + " " + answer.getQuestion().getQuestion() + " " + answer.getUser().getId());
 		em.persist(answer);
 		return answer;
 	}
