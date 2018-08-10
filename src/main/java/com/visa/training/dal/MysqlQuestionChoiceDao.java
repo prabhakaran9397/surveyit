@@ -1,11 +1,14 @@
 package com.visa.training.dal;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.visa.training.domain.Question;
 import com.visa.training.domain.QuestionChoice;
 
 @Repository
@@ -30,6 +33,12 @@ public class MysqlQuestionChoiceDao implements QuestionChoiceDao {
 	@Override
 	public QuestionChoice findById(int id) {
 		return em.find(QuestionChoice.class, id);
+	}
+
+	@Override
+	public List<QuestionChoice> findAllBySurvey(Question q) {
+		return (List<QuestionChoice>) em.createQuery("SELECT qc FROM QuestionChoice qc WHERE qc.question.id = " + q.getId()).getResultList();
+
 	}
   
 }
