@@ -1,6 +1,7 @@
 package com.visa.training.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,7 @@ public class TakeSurveyController {
 		List<UserSurvey> userSurveys = userSurveyService.findAllByUser(user);
 		for(UserSurvey us : userSurveys) {
 			found = !us.isFinished() && us.getSurveyDistribution().getId() == surveyDist.getId();
+			if(found) break;
 		}
 		if(!found) return "redirect:/home";
 		
@@ -71,6 +73,19 @@ public class TakeSurveyController {
 			qcs.add(questionChoiceService.findAllByQuestion(q));
 		}
 		data.put("questionChoices", qcs);
+		List<List<Answer>> answers = new ArrayList<>();
+		for(Question q: questions) {
+			answers.add(answerService.findAllByQuestionAndUser(q, user));
+		}
+		Map<Question, List<String>> qas = new HashMap<>();
+		for(List<Answer> a : answers) {
+			for(Answer _a : a) {
+				List<String> temp = qas.getOrDefault(_a.getQuestion(), new ArrayList<>());
+				temp.add(_a.getAnswer());
+				qas.put(_a.getQuestion(), temp);
+			}
+		}
+		data.put("qas", qas);
 		
 		return "takeSurveyView";
 	}
@@ -91,6 +106,7 @@ public class TakeSurveyController {
 			if(!us.isFinished() && us.getSurveyDistribution().getId() == surveyDist.getId()) {
 				found = true;
 				userSurvey = us;
+				break;
 			}
 		}
 		if(!found) return "redirect:/home";

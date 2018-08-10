@@ -15,11 +15,10 @@
 		<p>${timestamp}</p>
 		<c:forEach items="${qas}" var="qa" >
 			<p>${qa.key.question}</p>
-			<c:if test=${qa.key.questionType eq 1}>
-				<c:forEach items="${qa.value}" var="a">
-					<p>${a}</p>
-				</c:forEach>
-			</c:if>
+			<c:forEach items="${qa.value}" var="a">
+				<p>${a}</p>
+			</c:forEach>
+			<hr/>
 		</c:forEach>
 	</body>
 </html>

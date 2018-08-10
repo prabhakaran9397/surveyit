@@ -51,6 +51,7 @@ public class ResponseController {
 		List<UserSurvey> userSurveys = userSurveyService.findAllByUser(user);
 		for(UserSurvey us : userSurveys) {
 			found = us.isFinished() && us.getSurveyDistribution().getId() == surveyDist.getId();
+			if(found) break;
 		}
 		if(!found) return "redirect:/home";
 		
@@ -63,13 +64,11 @@ public class ResponseController {
 			answers.add(answerService.findAllByQuestionAndUser(q, user));
 		}
 		Map<Question, List<String>> qas = new HashMap<>();
-		for(Question q : questions) {
-			for(List<Answer> a : answers) {
-				for(Answer _a : a) {
-					List<String> temp = qas.getOrDefault(q, new ArrayList<>());
-					temp.add(_a.getAnswer());
-					qas.put(q, temp);
-				}
+		for(List<Answer> a : answers) {
+			for(Answer _a : a) {
+				List<String> temp = qas.getOrDefault(_a.getQuestion(), new ArrayList<>());
+				temp.add(_a.getAnswer());
+				qas.put(_a.getQuestion(), temp);
 			}
 		}
 		data.put("qas", qas);

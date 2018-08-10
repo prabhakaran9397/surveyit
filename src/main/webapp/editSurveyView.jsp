@@ -8,33 +8,47 @@
 <body>
 	Title |
 	<span>${survey.title} |</span>
-	<a href="/survey/${id}/title">Edit</a>
+	<a href="${id}/title">Edit</a>
 	<br />
 	<br /> Description
 	<p>${survey.description}</p>
-	<a href="/survey/${id}/description">Edit</a>
+	<a href="${id}/description">Edit</a>
 	<br />
 	<br />
 
 	<h3>Questions</h3>
-	<c:forEach var="question" items="${survey.questions}">
+	<c:forEach var="question" items="${questions}">
 		<div>
 			<p>${question.question}</p>
-			<c:if test="${question.questionType==1}">
+			<c:if test="${question.questionType eq 1}">
 				<c:forEach var="choice" items="${question.questionChoices}">
 					<input type="checkbox" disabled /> ${choice.questionChoice}
 					<br/>
 				</c:forEach>
 			</c:if>
-			<c:if test="${question.questionType==2}">
+			<c:if test="${question.questionType eq 2}">
 				<c:forEach var="choice" items="${question.questionChoices}">
 					<input type="radio" disabled /> ${choice.questionChoice}
 					<br/>
 				</c:forEach>
 			</c:if>
-			<a href="/question/${question.id}">Edit</a>
+			<a href="/surveyit/question/${question.id}">Edit</a>	
 		</div>
+		<hr size="7">
 	</c:forEach>
+	<h3>Add question</h3>
+	<form method="POST" action="/surveyit/question">
+		Question <input type="text" name="question">
+		Type 
+		<select name="questionType">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+		</select>
+		<input type="hidden" name="surveyId" value="${survey.id}">
+		<input type="submit" value="Add question">
+	</form>
 
 </body>
 </html>
