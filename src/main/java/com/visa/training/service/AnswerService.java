@@ -1,5 +1,7 @@
 package com.visa.training.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.visa.training.dal.AnswerDao;
 import com.visa.training.domain.Answer;
 import com.visa.training.domain.Question;
+import com.visa.training.domain.Survey;
 import com.visa.training.domain.User;
 
 @Service
@@ -44,5 +47,9 @@ public class AnswerService {
 	
 	public Answer findById(int id) {
 		return dao.findById(id);
+	}
+
+	public List<Answer> findAllByQuestionAndUser(User user, Question q) {
+		return dao.findAllByQuestionAndUser(user, q);
 	}
 }

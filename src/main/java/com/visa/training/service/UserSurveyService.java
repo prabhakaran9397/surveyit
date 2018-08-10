@@ -50,6 +50,11 @@ public class UserSurveyService {
 	public List<UserSurvey> findAllByUser(User u) {
 		return dao.findAllByUser(u);		
 	}
+
+	public void setFinished(UserSurvey us, boolean b) {
+		us = dao.findById(us.getId());
+		us.setFinished(b);
+	}
 	
 
 }

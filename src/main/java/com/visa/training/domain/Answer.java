@@ -29,11 +29,19 @@ public class Answer {
     @Column(nullable=false)
     String answer;
 
+    public Answer() {
+		super();
+	}
+    
     public Answer(Question question, User user, String answer) {
 		super();
 		this.question = question;
 		this.user = user;
 		this.answer = answer;
+	}
+    
+    public Answer() {
+		super();
 	}
     
     public int getId() {
