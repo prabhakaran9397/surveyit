@@ -25,9 +25,8 @@ public class QuestionChoice {
     @JoinColumn(name = "question_id")
     Question question;
 
-    public QuestionChoice(int id, String questionChoice, Question question) {
+    public QuestionChoice(String questionChoice, Question question) {
         super();
-        this.id = id;
         this.questionChoice = questionChoice;
         this.question = question;
     }

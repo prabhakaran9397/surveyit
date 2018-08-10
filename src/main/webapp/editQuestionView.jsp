@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Edit question - ${question}</title>
+<title>Edit question - ${question.question}</title>
 </head>
 <body>
 	Title |
@@ -12,7 +12,7 @@
 	<br/>
 	Type | ${question.questionType}
 	<br/>
-	<c:if test="${not empty choices}">
+	<c:if test="${(question.questionType eq 1) or (question.questionType eq 2)}">
 		Choices : <br/>
 		<c:if test="${question.questionType eq 1}">
 				<c:forEach var="choice" items="${question.questionChoices}">
@@ -28,7 +28,13 @@
 					<br/>
 				</c:forEach>
 			</c:if>
+			<h3>Add choice</h3>
+			<form action="/surveyit/questionchoice" method="POST">
+				<input type="text" name="questionChoice">
+				<input type="hidden" name="questionId">
+				<input type="submit" value="Add choice">
+			</form>
 	</c:if>
-	<
+	
 </body>
 </html>
