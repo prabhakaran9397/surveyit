@@ -60,11 +60,11 @@ public class SurveyController {
 		return "savedSurveyView";
 	}
 
-	@RequestMapping(value="/survey/{id}/{property}", method = RequestMethod.PUT)
-	public String editProperty(@PathVariable("id") int id,@PathVariable("property")String property,@RequestParam("value")String value, Map<String, Object> data){
+	@RequestMapping(value="/survey/{id}/title", method = RequestMethod.PUT)
+	public String editTitle(@PathVariable("id") int id,@RequestParam("title")String title, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
-			return "loginView";
+			return "redirect:/login";
 		}
 		Survey s = service.findById(id);
 		if(s==null)
@@ -72,20 +72,37 @@ public class SurveyController {
 			data.put("error", "No such survey found!");
 			return "errorView";
 		}
-		if(!service.findById(id).getUser().equals(user)){
-			return "homeView";
+		if(!s.getUser().equals(user)){
+			data.put("error", "Not authorized");
+			return "errorView";
 		}
-		
-		if(property.equals("title")){
-			s.setTitle(value);
-		}
-		else if(property.equals("description")){
-			s.setDescription(value);
-		}
-		data.put("survey", s);
-		return "editpropertyView";
+
+		s.setTitle(title);
+
+		return "redirect:/survey/"+s.getId();
 	}
 	
+	@RequestMapping(value="/survey/{id}/description", method = RequestMethod.PUT)
+	public String editDescription(@PathVariable("id") int id,@RequestParam("description")String description, Map<String, Object> data){
+		User user = login.getLoggedInUser();
+		if (user == null) {
+			return "redirect:/login";
+		}
+		Survey s = service.findById(id);
+		if(s==null)
+		{
+			data.put("error", "No such survey found!");
+			return "errorView";
+		}
+		if(!s.getUser().equals(user)){
+			data.put("error", "Not authorized");
+			return "errorView";
+		}
+
+		s.setTitle(title);
+
+		return "redirect:/survey/"+s.getId();
+	}
 	/*@RequestMapping(value="/survey/{id}/question", method=RequestMethod.POST)
 	public String addQuestion(@PathVariable("id") int id,@ModelAttribute("question")Question q){
 		

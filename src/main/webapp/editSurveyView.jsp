@@ -32,9 +32,23 @@
 					<br/>
 				</c:forEach>
 			</c:if>
-			<a href="/question/${question.id}">Edit</a>
+			<a href="/question/${question.id}">Edit</a>	
 		</div>
+		<hr size="7">
 	</c:forEach>
+	<h3>Add question</h3>
+	<form method="POST" action="question">
+		Question <input type="text" name="question">
+		Type 
+		<select name="questionType">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+		</select>
+		<input type="hidden" name="surveyId" value="${survey.id}">
+		<input type="submit" value="Add question">
+	</form>
 
 </body>
 </html>

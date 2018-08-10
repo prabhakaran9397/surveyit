@@ -57,7 +57,7 @@ public class QuestionController {
 	}
 
 	@RequestMapping(value="/question/{id}/title",method=RequestMethod.GET)
-	public String editTitle(@PathVariable("id")int id, Map<String, Object> data){
+	public String editQuestionTitle(@PathVariable("id")int id, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
 			return "loginView";
@@ -76,10 +76,10 @@ public class QuestionController {
 		}
 		data.put("id", id);
 		data.put("question", q.getQuestion());
-		return "editTitleView";
+		return "editQuestionTitleView";
 	}
 	
-	/*@RequestMapping(value="/question/{id}/title",method=RequestMethod.PUT)
+	@RequestMapping(value="/question/{id}/title",method=RequestMethod.PUT)
 	public String saveTitle(@PathVariable("id")int id, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
@@ -97,6 +97,7 @@ public class QuestionController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		data.
-	}*/
+		data.put("survey",survey);
+		return "editSurveyView";
+	}
 }
