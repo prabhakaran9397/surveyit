@@ -88,7 +88,7 @@ public class QuestionChoiceController {
 		return "redirect:/question/"+qc.getQuestion().getId();
 	}
 	
-	@RequestMapping(value="/questionChoice", method=RequestMethod.POST)
+	@RequestMapping(value="/questionchoice", method=RequestMethod.POST)
 	public String createChoice(@RequestParam("questionChoice")String questionChoice,@RequestParam("questionId")int qid, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
@@ -107,7 +107,7 @@ public class QuestionChoiceController {
 			data.put("error", "Survey already distributed");
 			return "errorView";
 		}
-		if(question.getQuestionType()!=1 || question.getQuestionType()!=2){
+		if(question.getQuestionType()!=1 && question.getQuestionType()!=2){
 			data.put("error", "Cannot add choices to this question type");
 			return "errorView";
 		}

@@ -15,7 +15,7 @@
 	<c:if test="${(question.questionType eq 1) or (question.questionType eq 2)}">
 		Choices : <br/>
 		<c:if test="${question.questionType eq 1}">
-				<c:forEach var="choice" items="${question.questionChoices}">
+				<c:forEach var="choice" items="${choices}">
 					<input type="checkbox" disabled /> ${choice.questionChoice}
 				| <a href="/surveyit/questionchoice/${choice.id}">Edit</a>
 					<br/>
@@ -31,7 +31,7 @@
 			<h3>Add choice</h3>
 			<form action="/surveyit/questionchoice" method="POST">
 				<input type="text" name="questionChoice">
-				<input type="hidden" name="questionId">
+				<input type="hidden" name="questionId" value="${question.id}">
 				<input type="submit" value="Add choice">
 			</form>
 	</c:if>
