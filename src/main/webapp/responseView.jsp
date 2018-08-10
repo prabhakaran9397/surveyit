@@ -15,8 +15,11 @@
 		<tr><th>Survey Description</th><td>${description }</td></tr>
 		<tr><th>Time Stamp</th><td>${timestamp }</td></tr>
 		<tr><th>Questions</th><th>Answers</th></tr>
-		<c:forEach begin="0" step="1" end="${fn:length(questions)}" var="count">
-		<tr><td>${questions[count] }</td><td>${answers[count] }</td></tr>
+		<c:forEach begin="1" step="1" end="${fn:length(questions)}" varStatus="i">
+		<tr><td>${questions[i.count-1].question }</td><td> </td></tr>
+		<c:forEach begin="1" step="1" end="${fn:length(answers[i.count-1]) }" varStatus="j">
+		<tr><td> </td><td>${answers[i.count-1][j.count-1].answer}</td></tr>
+		</c:forEach>
 		</c:forEach>
 		
 		</table>
