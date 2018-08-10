@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.visa.training.domain.Question;
 import com.visa.training.domain.Survey;
 import com.visa.training.domain.User;
+import com.visa.training.service.QuestionService;
 import com.visa.training.service.SurveyService;
 
 @Controller
@@ -23,6 +24,9 @@ public class SurveyController {
 
 	@Autowired
 	SurveyService service;
+	
+	@Autowired
+	QuestionService questionService;
 
 	@RequestMapping(value = "/createSurvey", method = RequestMethod.GET)
 	public String createSurvey() {
@@ -45,7 +49,7 @@ public class SurveyController {
 	}
 
 	@RequestMapping(value = "/survey/{id}", method = RequestMethod.GET)
-	public String showSavedSurvey(@PathVariable("id") int id, Map<String, Object> data) {
+	public String editSurvey(@PathVariable("id") int id, Map<String, Object> data) {
 		User user = login.getLoggedInUser();
 
 		if (user == null) return "redirect:/login";
@@ -53,15 +57,13 @@ public class SurveyController {
 		
 
 		Survey s = service.findById(id);
-		data.put("id", s.getId());
-		data.put("title", s.getTitle());
-		data.put("description", s.getDescription());
-		data.put("questions", s.getQuestions());
-		return "savedSurveyView";
+		data.put("survey", s);
+		data.put("questions",questionService.findAllBySurvey(s));
+		return "editSurveyView";
 	}
 
 	@RequestMapping(value="/survey/{id}/title", method = RequestMethod.PUT)
-	public String editTitle(@PathVariable("id") int id,@RequestParam("title")String title, Map<String, Object> data){
+	public String saveTitle(@PathVariable("id") int id,@RequestParam("title")String title, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
 			return "redirect:/login";
@@ -83,7 +85,7 @@ public class SurveyController {
 	}
 	
 	@RequestMapping(value="/survey/{id}/description", method = RequestMethod.PUT)
-	public String editDescription(@PathVariable("id") int id,@RequestParam("description")String description, Map<String, Object> data){
+	public String saveDescription(@PathVariable("id") int id,@RequestParam("description")String description, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
 			return "redirect:/login";
@@ -99,12 +101,48 @@ public class SurveyController {
 			return "errorView";
 		}
 
-		s.setTitle(title);
+		s.setDescription(description);
 
 		return "redirect:/survey/"+s.getId();
 	}
-	/*@RequestMapping(value="/survey/{id}/question", method=RequestMethod.POST)
-	public String addQuestion(@PathVariable("id") int id,@ModelAttribute("question")Question q){
-		
-	}*/
+	
+	@RequestMapping(value="/survey/{id}/title", method=RequestMethod.GET)
+	public String editTitle(@PathVariable("id")int id, Map<String,Object> data){
+		User user = login.getLoggedInUser();
+		if (user == null) {
+			return "redirect:/login";
+		}
+		Survey s = service.findById(id);
+		if(s==null)
+		{
+			data.put("error", "No such survey found!");
+			return "errorView";
+		}
+		if(!s.getUser().equals(user)){
+			data.put("error", "Not authorized");
+			return "errorView";
+		}
+		data.put("survey", s);
+		return "editSurveyTitleView";
+	}
+	
+	@RequestMapping(value="/survey/{id}/description", method=RequestMethod.GET)
+	public String editDescription(@PathVariable("id")int id, Map<String,Object> data){
+		User user = login.getLoggedInUser();
+		if (user == null) {
+			return "redirect:/login";
+		}
+		Survey s = service.findById(id);
+		if(s==null)
+		{
+			data.put("error", "No such survey found!");
+			return "errorView";
+		}
+		if(!s.getUser().equals(user)){
+			data.put("error", "Not authorized");
+			return "errorView";
+		}
+		data.put("survey", s);
+		return "editSurveyDescriptionView";
+	}
 }

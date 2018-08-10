@@ -17,16 +17,16 @@
 	<br />
 
 	<h3>Questions</h3>
-	<c:forEach var="question" items="${survey.questions}">
+	<c:forEach var="question" items="${questions}">
 		<div>
 			<p>${question.question}</p>
-			<c:if test="${question.questionType==1}">
+			<c:if test="${question.questionType eq 1}">
 				<c:forEach var="choice" items="${question.questionChoices}">
 					<input type="checkbox" disabled /> ${choice.questionChoice}
 					<br/>
 				</c:forEach>
 			</c:if>
-			<c:if test="${question.questionType==2}">
+			<c:if test="${question.questionType eq 2}">
 				<c:forEach var="choice" items="${question.questionChoices}">
 					<input type="radio" disabled /> ${choice.questionChoice}
 					<br/>

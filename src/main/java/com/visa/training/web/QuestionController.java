@@ -1,5 +1,6 @@
 package com.visa.training.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.visa.training.domain.Question;
 import com.visa.training.domain.Survey;
 import com.visa.training.domain.User;
+import com.visa.training.service.QuestionChoiceService;
 import com.visa.training.service.QuestionService;
 import com.visa.training.service.SurveyDistributionService;
 import com.visa.training.service.SurveyService;
@@ -27,15 +29,18 @@ public class QuestionController {
 
 	@Autowired
 	QuestionService questionService;
+	
+	@Autowired
+	QuestionChoiceService questionChoiceService;
 
 	@RequestMapping(value="/question",method=RequestMethod.POST)
 	public String createQuestion(@RequestParam("question")String question,@RequestParam("questionType")int questionType,@RequestParam("surveyId")int surveyId, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
-			return "loginView";
+			return "redirect:/login";
 		}
 		if (user.getUsertype() < 1) {
-			return "homeView";
+			return "redirect:/home";
 		}
 		
 		Survey survey = surveyService.findById(surveyId);
@@ -51,16 +56,38 @@ public class QuestionController {
 			return "errorView";
 		}
 		Question q = new Question(questionType, question, survey);
-		questionService.create(q,survey);
-		data.put("question", q);
-		return "questionEditView";
+		q = questionService.create(q,survey);
+		return "redirect:/question/"+q.getId();
 	}
-
+	
+	@RequestMapping(value="/question/{id}", method=RequestMethod.GET)
+	public String editQuestion(@PathVariable("id")int id, Map<String, Object> data){
+		User user = login.getLoggedInUser();
+		if (user == null) {
+			return "redirect:/login";
+		}
+		Question q = questionService.findById(id);
+		if(q==null)
+		{
+			data.put("error", "No such question found!");
+			return "errorView";
+		}
+		Survey survey = q.getSurvey();
+		if(!survey.getUser().equals(user))
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		data.put("question", q.getQuestion());
+		data.put("choices", questionChoiceService.findAllByQuestion(q));
+		return "editQuestionView";
+	}
+	
 	@RequestMapping(value="/question/{id}/title",method=RequestMethod.GET)
 	public String editQuestionTitle(@PathVariable("id")int id, Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
-			return "loginView";
+			return "redirect:/login";
 		}
 		Question q = questionService.findById(id);
 		if(q==null)
@@ -80,10 +107,10 @@ public class QuestionController {
 	}
 	
 	@RequestMapping(value="/question/{id}/title",method=RequestMethod.PUT)
-	public String saveTitle(@PathVariable("id")int id, Map<String, Object> data){
+	public String saveTitle(@PathVariable("id")int id, @RequestParam("question")String question,Map<String, Object> data){
 		User user = login.getLoggedInUser();
 		if (user == null) {
-			return "loginView";
+			return "redirect:/login";
 		}
 		Question q = questionService.findById(id);
 		if(q==null)
@@ -97,7 +124,7 @@ public class QuestionController {
 			data.put("error", "Not authorized to use it");
 			return "errorView";
 		}
-		data.put("survey",survey);
-		return "editSurveyView";
+		q.setQuestion(question);
+		return "redirect:/question/"+id;
 	}
 }
