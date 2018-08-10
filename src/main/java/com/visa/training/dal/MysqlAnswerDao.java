@@ -15,6 +15,7 @@ public class MysqlAnswerDao implements AnswerDao {
 	
 	@Override
 	public Answer create(Answer answer) {
+		System.out.println(answer);
 		em.persist(answer);
 		return answer;
 	}

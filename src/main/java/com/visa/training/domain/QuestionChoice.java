@@ -31,6 +31,10 @@ public class QuestionChoice {
         this.questionChoice = questionChoice;
         this.question = question;
     }
+    
+    public QuestionChoice() {
+        super();
+    }
 
     @Override
     public String toString() {
