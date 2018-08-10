@@ -36,6 +36,10 @@ public class Answer {
 		this.answer = answer;
 	}
     
+    public Answer() {
+		super();
+	}
+    
     public int getId() {
         return id;
     }
