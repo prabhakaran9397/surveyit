@@ -13,5 +13,5 @@ public interface AnswerDao {
 	
 	Answer findById(int id);
 
-	List<Answer> findAllByQuestionAndUser(User user, Question q);
+	List<Answer> findAllByQuestionAndUser(Question q, User user);
 }

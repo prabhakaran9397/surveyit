@@ -49,7 +49,7 @@ public class AnswerService {
 		return dao.findById(id);
 	}
 
-	public List<Answer> findAllByQuestionAndUser(User user, Question q) {
-		return dao.findAllByQuestionAndUser(user, q);
+	public List<Answer> findAllByQuestionAndUser(Question q, User user) {
+		return dao.findAllByQuestionAndUser(q, user);
 	}
 }
