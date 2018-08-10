@@ -15,13 +15,14 @@
 	</head>
 	<body>
 
-		<form action="distribute" method="post">
+		<form action="/surveyit/distribute" method="post">
 			
-			<input name="survey" value="${survey.id}" disabled/>
+			<input type="hidden" name="survey" value="${survey.id}"/>
 			
 			<p>Select Users</p>
 			<c:forEach var="u" items="${userslist }" >
-				${u.firstname} <input type="checkbox" name="user" value="${u.id}"/>
+				<input type="checkbox" name="user" value="${u.id}"/>${u.firstname}
+				<br/>
 			</c:forEach>
 			
 			
