@@ -11,6 +11,21 @@
 		<title>View Responses Page</title>
 		<style type="text/css">
 			.err { color: red; }
+			table {
+			    font-family: arial, sans-serif;
+			    border-collapse: collapse;
+			    width: 100%;
+			}
+			
+			td, th {
+			    border: 1px solid #dddddd;
+			    text-align: left;
+			    padding: 8px;
+			}
+			
+			tr:nth-child(even) {
+			    background-color: #dddddd;
+			}
 		</style>
 	</head>
 	<body>
@@ -27,9 +42,9 @@
 		<c:forEach var="entry" items="${questiontypethreeandfour }">
 		
 			<div>
-				<p>${entry.key }</p>
-				<c:forEach var="answer" items="${entry.value }">
-					<p>${answer }</p>
+				<p><b>Question : </b> ${entry.key.question }</p>
+				<c:forEach var="ans" items="${entry.value }">
+					<p>${ans.answer }</p>
 				</c:forEach>
 			</div>
 			
@@ -40,21 +55,26 @@
 		<c:forEach var="entry" items="${questiontypeoneandtwo }">
 		
 		<div>
-		<c:forEach var="choice" items="${entry.value }">
-			<p>${entry.key }</p>
+		<p>${entry.key.question }</p>
 			<br>
 			<table>
 				<tr>
 					<th> Choices </th>
 					<th> No. Of Respondents </th>
 				</tr>
+				
+				<c:forEach var="choice" items="${entry.value}">
+			
 				<tr>
-					<td> ${choice.key } </td>
-					<td> ${choice.value } </td>
+					<td> ${choice.key.questionChoice} </td>
+					<td> ${choice.value} </td>
 				</tr>
-			</table>
-		</c:forEach>
+				
+				</c:forEach>
+				
+				</table>
 		</div>
+		
 		
 		</c:forEach>
 	</div>

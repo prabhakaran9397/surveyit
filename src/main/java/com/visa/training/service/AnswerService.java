@@ -52,4 +52,8 @@ public class AnswerService {
 	public List<Answer> findAllByQuestionAndUser(Question q, User user) {
 		return dao.findAllByQuestionAndUser(q, user);
 	}
+
+	public List<Answer> findAllByQuestion(Question q) {
+		return dao.findAllByQuestion(q);
+	}
 }

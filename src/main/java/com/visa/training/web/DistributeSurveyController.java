@@ -50,7 +50,12 @@ public class DistributeSurveyController {
 		if(survey == null) return "redirect:/home";
 
 		data.put("survey", survey);
-		List<User> users = userService.findRespondents();
+		List<User> users = userService.findAll();
+		for(User u: users){
+			if(u.getUsertype() == 1){
+				users.remove(u);
+			}
+		}
 		data.put("userslist", users);
 		
 		return "distributeSurveyView";

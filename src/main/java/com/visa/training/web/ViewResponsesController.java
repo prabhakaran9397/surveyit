@@ -1,5 +1,6 @@
 package com.visa.training.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -55,48 +56,42 @@ public class ViewResponsesController {
 		Survey survey = surveyDist.getSurvey();
 		List<Question> questionList = questionService.findAllBySurvey(survey);
 		
-		Map<Question, List<Answer>> questionAnswer = new TreeMap<>();
+		Map<Question, List<Answer>> questionAnswer = new HashMap<>();
 		for(Question q: questionList) {
 			if(q.getQuestionType() == 3 || q.getQuestionType() == 4) {
-				List<Answer> ans = answerService.findAllAnswersByQuestion(q);
+				List<Answer> ans = answerService.findAllByQuestion(q);
 				questionAnswer.put(q, ans);
 			}
 		}
 		
 		data.put("questiontypethreeandfour", questionAnswer);
 		
-		Map<Question, Map<QuestionChoice, Integer>> questionchoicesAnswer = new TreeMap<>();
+		Map<Question, Map<QuestionChoice, Integer>> questionchoicesAnswer = new HashMap<>();
 		
-		Map<QuestionChoice, Integer> questionchoiceRespondents = new  TreeMap<>();
+		
+		
 		for(Question q: questionList) {
-			questionchoiceRespondents.clear();
 			if(q.getQuestionType() == 1 || q.getQuestionType() == 2) {
+				Map<QuestionChoice, Integer> questionchoiceRespondents = new  HashMap<>();
+				
 				List<QuestionChoice> questionChoices = questionChoiceService.findAllByQuestion(q);
-				List<Answer> answerforChoices = answerService.findAllAnswersByQuestion(q);
+				List<Answer> answerforChoices = answerService.findAllByQuestion(q);
 				
-				
-				int numberofChoices = questionChoices.size();
-				
-				int choice = 1;
 				
 				for(QuestionChoice qch: questionChoices) {
 					int count = 0;
 					for(Answer a : answerforChoices) {
-						if(Integer.parseInt(a.getAnswer()) == choice){
+						if(a.getAnswer().equals(qch.getQuestionChoice())){
 							count = count + 1;
 						}
 					}
 					questionchoiceRespondents.put(qch, Integer.valueOf(count));
-					if(choice == numberofChoices){
-						break;
-					}
-					choice = choice+1;
 				}
 				questionchoicesAnswer.put(q, questionchoiceRespondents);			
 			}
 		}
 		
-		data.put("questiontypeoneandtwo", questionAnswer);
+		data.put("questiontypeoneandtwo", questionchoicesAnswer);
 		return "responsesView";
 		
 		

@@ -65,7 +65,7 @@
 					<c:forEach var="element" items="${row}">
 					<td> ${element} </td>
 					</c:forEach>
-					<td><a href="distribute/${row[0]}" >My Response</a></td>
+					<td><a href="distribute/${row[0]}" >Distribute</a></td>
 				</tr>
 				</c:forEach>
 			</table>
