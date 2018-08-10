@@ -19,11 +19,11 @@ public class UserSurvey {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     int id;
     
-    @ManyToOne(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @ManyToOne(cascade={CascadeType.PERSIST}, fetch=FetchType.EAGER)
     @JoinColumn(name="user_id")
     User user;
     
-    @ManyToOne(cascade={CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @ManyToOne(cascade={CascadeType.PERSIST}, fetch=FetchType.EAGER)
     @JoinColumn(name="survey_distribution_id")
     SurveyDistribution surveyDistribution;
     

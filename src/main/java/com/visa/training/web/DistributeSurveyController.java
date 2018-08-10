@@ -44,30 +44,27 @@ public class DistributeSurveyController {
 	@RequestMapping(value = "/distribute/{id}", method = RequestMethod.GET)
 	public String handleDistributeView(@PathVariable("id") int surveyId, Map<String, Object> data) {
 		User user = login.getLoggedInUser();
-		if (user == null) return "loginView";
+		if (user == null) return "redirect:/login";
 		
 		Survey survey = surveyService.findById(surveyId);
+		if(survey == null) return "redirect:/home";
 
 		data.put("survey", survey);
 		List<User> users = userService.findAll();
 		data.put("userslist", users);
 		
-		return "distributeView";
+		return "distributeSurveyView";
 
 	}
 
 	@RequestMapping(value = "/distribute", method = RequestMethod.POST)
 	public String processDistributeSurvey(@RequestParam("survey") int sid, @RequestParam("user") List<Integer> uids) {
-
 		User user = login.getLoggedInUser();
-		if (user == null) {
-			return "loginView";
-		}
+		if (user == null) return "redirect:/login";
 
 		Survey s = surveyService.findById(sid);
-		if(s == null){
-			return "homeView";
-		}
+		if(s == null) return "redirect:/home";
+		
 		List<User> users = uids.stream().map(userService::findById).collect(Collectors.toList());
 		
 		SurveyDistribution sd = new SurveyDistribution();
@@ -84,7 +81,7 @@ public class DistributeSurveyController {
 
 		sd.setUserSurveys(usersurveyList);
 
-		return null;
+		return "homeView";
 
 	}
 

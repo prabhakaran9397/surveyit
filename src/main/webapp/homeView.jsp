@@ -9,6 +9,9 @@
 		<title>Home</title>
 	</head>
 	<body>
+		<c:if test="${not empty error}">
+			<p class="err"> ${error} </p>
+		</c:if>
 		<c:if test="${not empty table1}">
 		<div>
 			<h3>Pending Surveys</h3>
@@ -23,7 +26,7 @@
 					<c:forEach var="element" items="${row}">
 					<td> ${element} </td>
 					</c:forEach>
-					<td><a href="takeSurvey/${element[0]}" >Go</a></td>
+					<td><a href="takeSurvey/${row[0]}" >Go</a></td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -43,7 +46,7 @@
 					<c:forEach var="element" items="${row}">
 					<td> ${element} </td>
 					</c:forEach>
-					<td><a href="viewResponse/${element[0]}" >My Response</a></td>
+					<td><a href="viewResponse/${row[0]}" >My Response</a></td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -62,7 +65,7 @@
 					<c:forEach var="element" items="${row}">
 					<td> ${element} </td>
 					</c:forEach>
-					<td><a href="distribute/${element[0]}" >My Response</a></td>
+					<td><a href="distribute/${row[0]}" >My Response</a></td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -82,7 +85,7 @@
 					<c:forEach var="element" items="${row}">
 					<td> ${element} </td>
 					</c:forEach>
-					<td><a href="viewResponses/${element[0]}" >Responses</a></td>
+					<td><a href="viewResponses/${row[0]}" >Responses</a></td>
 				</tr>
 				</c:forEach>
 			</table>

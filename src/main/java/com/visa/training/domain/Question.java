@@ -28,7 +28,7 @@ public class Question {
     @Column(nullable = false)
     String question;
     
-    @ManyToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinColumn(name = "survey_id")
     Survey survey;
     

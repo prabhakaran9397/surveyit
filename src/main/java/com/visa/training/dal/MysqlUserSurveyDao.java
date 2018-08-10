@@ -1,11 +1,14 @@
 package com.visa.training.dal;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.visa.training.domain.User;
 import com.visa.training.domain.UserSurvey;
 
 @Repository
@@ -37,6 +40,11 @@ public class MysqlUserSurveyDao implements UserSurveyDao {
 		em.persist(us);
 		return us;
 		
+	}
+	
+	@Override
+	public List<UserSurvey> findAllByUser(User u) {
+		return (List<UserSurvey>) em.createQuery("SELECT u FROM UserSurvey u WHERE u.user.id = " + u.getId()).getResultList();
 	}
 
 	

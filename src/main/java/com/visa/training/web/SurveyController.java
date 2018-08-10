@@ -27,38 +27,30 @@ public class SurveyController {
 	@RequestMapping(value = "/createSurvey", method = RequestMethod.GET)
 	public String createSurvey() {
 		User user = login.getLoggedInUser();
-		if (user == null) {
-			return "loginView";
-		}
-		if (user.getUsertype() < 1) {
-			return "homeView";
-		}
+
+		if (user == null) return "redirect:/login";
+		if(user.getUsertype()<1) return "redirect:/home";
 		return "surveyView";
 	}
 
 	@RequestMapping(value = "/saveSurvey", method = RequestMethod.POST)
 	public String saveSurvey(@ModelAttribute("survey") Survey s) {
 		User user = login.getLoggedInUser();
-		if (user == null) {
-			return "loginView";
-		}
-		if (user.getUsertype() < 1) {
-			return "homeView";
-		}
+
+		if (user == null) return "redirect:/login";
+		if(user.getUsertype()<1) return "redirect:/home";
 
 		service.create(s, user);
-		return "homeView";
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/survey/{id}", method = RequestMethod.GET)
 	public String showSavedSurvey(@PathVariable("id") int id, Map<String, Object> data) {
 		User user = login.getLoggedInUser();
-		if (user == null) {
-			return "loginView";
-		}
-		if (user.getUsertype() < 1) {
-			return "homeView";
-		}
+
+		if (user == null) return "redirect:/login";
+		if(user.getUsertype()<1) return "redirect:/home";
+		
 
 		Survey s = service.findById(id);
 		data.put("id", s.getId());
