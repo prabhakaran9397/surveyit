@@ -86,8 +86,5 @@ public class SurveyController {
 		return "editpropertyView";
 	}
 	
-	@RequestMapping(value="/survey/{id}/question", method=RequestMethod.POST)
-	public String addQuestion(@PathVariable("id") int id,@ModelAttribute("question")Question q){
-		
-	}
+	
 }

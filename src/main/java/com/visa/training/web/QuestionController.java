@@ -55,6 +55,5 @@ public class QuestionController {
 		return "questionEditView";
 	}
 
-	@RequestMapping(value="/question/{id}/title",method=RequestMethod.PUT)
-	public String editTitle()
+	
 }
