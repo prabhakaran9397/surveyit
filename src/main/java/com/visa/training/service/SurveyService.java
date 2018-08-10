@@ -44,5 +44,15 @@ public class SurveyService {
 		dao.delete(id);
 	}
 	
+	public void changeTitle(Survey s, String newTitle)
+	{
+		s = findById(s.getId());
+		s.setTitle(newTitle);
+	}
 	
+	public void changeDescription(Survey s, String newDescription)
+	{
+		s = findById(s.getId());
+		s.setDescription(newDescription);
+	}
 }
