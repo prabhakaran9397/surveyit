@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +56,47 @@ public class QuestionController {
 		return "questionEditView";
 	}
 
-	@RequestMapping(value="/question/{id}/title",method=RequestMethod.PUT)
-	public String editTitle()
+	@RequestMapping(value="/question/{id}/title",method=RequestMethod.GET)
+	public String editTitle(@PathVariable("id")int id, Map<String, Object> data){
+		User user = login.getLoggedInUser();
+		if (user == null) {
+			return "loginView";
+		}
+		Question q = questionService.findById(id);
+		if(q==null)
+		{
+			data.put("error", "No such question found!");
+			return "errorView";
+		}
+		Survey survey = q.getSurvey();
+		if(!survey.getUser().equals(user))
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		data.put("id", id);
+		data.put("question", q.getQuestion());
+		return "editTitleView";
+	}
+	
+	/*@RequestMapping(value="/question/{id}/title",method=RequestMethod.PUT)
+	public String saveTitle(@PathVariable("id")int id, Map<String, Object> data){
+		User user = login.getLoggedInUser();
+		if (user == null) {
+			return "loginView";
+		}
+		Question q = questionService.findById(id);
+		if(q==null)
+		{
+			data.put("error", "No such question found!");
+			return "errorView";
+		}
+		Survey survey = q.getSurvey();
+		if(!survey.getUser().equals(user))
+		{
+			data.put("error", "Not authorized to use it");
+			return "errorView";
+		}
+		data.
+	}*/
 }
