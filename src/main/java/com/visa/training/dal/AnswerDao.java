@@ -1,6 +1,9 @@
 package com.visa.training.dal;
 
+import java.util.List;
+
 import com.visa.training.domain.Answer;
+import com.visa.training.domain.User;
 
 public interface AnswerDao {
 	Answer create(Answer answer);
@@ -8,4 +11,6 @@ public interface AnswerDao {
 	void delete(int id);
 	
 	Answer findById(int id);
+
+	List<Answer> findAllByUser(User user);
 }
